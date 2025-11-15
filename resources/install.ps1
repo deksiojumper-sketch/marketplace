@@ -4,25 +4,6 @@ param(
     [switch]$BypassAdmin
 )
 
-$ErrorActionPreference = 'Stop'
-[Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
-
-function Invoke-Spicetify {
-    param (
-        [Parameter(Mandatory = $true, Position = 0, ValueFromRemainingArguments = $true)]
-        [string[]]$Arguments
-    )
-    
-    $spicetifyArgs = @()
-    if ($BypassAdmin) {
-        $spicetifyArgs += "--bypass-admin"
-    }
-    $spicetifyArgs += $Arguments
-    
-    & spicetify $spicetifyArgs
-    return $LASTEXITCODE
-}
-
 function Invoke-SpicetifyWithOutput {
     param (
         [Parameter(Mandatory = $true, Position = 0, ValueFromRemainingArguments = $true)]
